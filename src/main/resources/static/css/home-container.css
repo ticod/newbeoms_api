@@ -22,10 +22,6 @@
     transition: .2s;
 }
 
-.search > input[type="text"]::focus {
-    border: 2px solid blue;
-}
-
 .search > button {
     border: 1px solid #A2A2A2;
     background-color: white;
@@ -48,7 +44,7 @@
 
 /* news */
 .news {
-    margin-top: 0rem;
+    margin-top: 0;
 }
 
 .news > button {
