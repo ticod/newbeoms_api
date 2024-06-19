@@ -18,7 +18,7 @@ public class GossipLink {
     @JoinColumn(name = "gossip_id", nullable = false)
     private Gossip gossip;
 
-    @Column(name = "link", nullable = false, length = 200)
+    @Column(name = "link", nullable = false, length = 300)
     private String link;
 
     @Builder
