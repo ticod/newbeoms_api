@@ -5,17 +5,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-
 @RestController
 public class HomeController {
 
     /**
      * 해당 출간일의 기사 반환
      */
-    @GetMapping("/{date}")
+    @GetMapping("/publication/{date}")
     public String getPublicationByDate(@RequestParam("date") String date) {
         return date;
+    }
+
+    /**
+     * 출간일 및 기사 추가
+     */
+    @PostMapping("/publication")
+    public String addPublication() {
+        return "ok";
     }
 
     /**
