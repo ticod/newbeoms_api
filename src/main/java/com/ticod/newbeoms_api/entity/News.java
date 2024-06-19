@@ -38,9 +38,6 @@ public class News {
     @Column(name = "image_path", nullable = false, length = 100)
     private String imagePath;
 
-    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NewsTag> tagList = new ArrayList<>();
-
     @Builder
     public News(Publication publication, String title, LocalDate newsDate, String subtitle, String content, String imagePath) {
         this.publication = publication;
