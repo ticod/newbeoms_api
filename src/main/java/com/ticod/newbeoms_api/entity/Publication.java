@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Table(name = "publication", schema = "newbeoms_db")
 public class Publication {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "publication_date", nullable = false)
