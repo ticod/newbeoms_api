@@ -1,0 +1,46 @@
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0.5rem 0.5rem 0 0;
+}
+
+.logo-title a {
+    color: #033b8e;
+}
+
+.logo-img-box {
+    padding: 0;
+    margin: 0;
+}
+
+.logo-img {
+    width: 5rem;
+    height: 5rem;
+}
+
+.logo {
+    padding: 0 1rem;
+}
+
+.logo-title {
+    /* TODO: border 아래만 or border 둥글게 */
+    border-bottom: 3px solid #033b8e;
+    /* border-radius: 0.3rem; */
+    padding: 0.1rem 1rem;
+    margin: 0 0;
+
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    color: #033b8e;
+}
+
+.logo-subtitle {
+    padding: 0.1rem 0.5rem;
+    margin: 0;
+
+    font-size: 1rem;
+    text-align: right;
+    color: black;
+}

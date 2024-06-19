@@ -1,0 +1,86 @@
+.item-sub-box {
+    /* border: 1px solid black; */
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    border-radius: 0.3rem;
+    word-break: break-all;
+}
+
+.item-sub-box a {
+    color: white;
+}
+
+.publication-date {
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* weekly-game-news */
+.weekly-game-news {
+    background-color: #0981bda8;
+    color: white;
+}
+
+/* gossip */
+.gossip {
+    background-color: #ed7d31;
+    color: white;
+}
+
+.gossip-content {
+    margin: 0.25rem 0;
+}
+
+.gossip-link {
+    margin: 0 0.25rem;
+    text-decoration: underline;
+}
+
+/* coming-soon */
+.comingsoon-box {
+    margin: 0.75rem 0;
+}
+
+.comingsoon {
+    background-color: #808080;
+    color: white;
+}
+
+.coming-soon {
+    font-size : 0.75rem;
+}
+
+.comingsoon-day {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+/* hardware-news */
+.hardware-news {
+    background-color: #ed7d31;
+    color: white;
+}
+
+.hardware-news-contents {
+    text-decoration: underline;
+}
+
+
+/* work-cited */
+.work-cited {
+    background-color: #808080;
+    color: white;
+}
+
+.item-sub-box-header {
+    font-size: 1.5rem;
+    text-decoration: underline;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.item-sub-box-header > a {
+    color: white;
+}
