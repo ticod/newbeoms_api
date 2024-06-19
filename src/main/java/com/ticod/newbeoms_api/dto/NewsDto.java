@@ -41,4 +41,13 @@ public class NewsDto {
                 .build();
     }
 
+    public static NewsDto from(News news) {
+        return NewsDto.builder().title(news.getTitle())
+                .subtitle(news.getSubtitle())
+                .content(news.getContent())
+                .imagePath(news.getImagePath())
+                .date(news.getNewsDate())
+                .build();
+    }
+
 }
