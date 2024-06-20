@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @Entity
@@ -20,6 +23,9 @@ public class Gossip {
 
     @Column(name = "title", nullable = false, length = 100)
     private String title;
+
+    @OneToMany(mappedBy = "gossip", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GossipLink> gossipLinks = new ArrayList<>();
 
     @Builder
     public Gossip(Publication publication, String title) {

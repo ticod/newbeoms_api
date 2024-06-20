@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -22,6 +24,9 @@ public class ComingSoon {
 
     @Column(name = "coming_soon_date", nullable = false)
     private LocalDate comingSoonDate;
+
+    @OneToMany(mappedBy = "comingSoon", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ComingSoonContent> comingSoonContents = new ArrayList<>();
 
     @Builder
     public ComingSoon(Publication publication, LocalDate comingSoonDate) {

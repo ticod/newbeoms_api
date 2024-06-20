@@ -28,4 +28,11 @@ public class GossipDto {
                 .build();
     }
 
+    public static GossipDto from(Gossip gossip) {
+        return GossipDto.builder()
+                .title(gossip.getTitle())
+                .links(gossip.getGossipLinks().stream().map(GossipLink::getLink).toList())
+                .build();
+    }
+
 }

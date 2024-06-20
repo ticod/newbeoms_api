@@ -22,10 +22,11 @@ public class ComingSoonDto {
         this.contents = contents;
     }
 
-    public static ComingSoonDto of(ComingSoon comingSoon, List<ComingSoonContent> comingSoonContents) {
+    public static ComingSoonDto from(ComingSoon comingSoon) {
         return ComingSoonDto.builder()
                 .date(comingSoon.getComingSoonDate())
-                .contents(comingSoonContents.stream().map(ComingSoonContent::getContent).toList())
+                .contents(comingSoon.getComingSoonContents()
+                        .stream().map(ComingSoonContent::getContent).toList())
                 .build();
     }
 }
