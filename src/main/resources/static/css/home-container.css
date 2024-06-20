@@ -102,6 +102,7 @@
 .news-intro {
     font-size: 1.2rem;
     text-align: right;
+    display: block;
 }
 
 .news-intro:hover {
