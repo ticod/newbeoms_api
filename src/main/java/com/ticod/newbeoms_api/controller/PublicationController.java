@@ -1,5 +1,6 @@
 package com.ticod.newbeoms_api.controller;
 
+import com.ticod.newbeoms_api.dto.NewsDto;
 import com.ticod.newbeoms_api.dto.PublicationDto;
 import com.ticod.newbeoms_api.service.PublicationService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -43,8 +45,12 @@ public class PublicationController {
      * 해당 태그에 관련된 기사 반환
      */
     @GetMapping("/publication/news/{tags}")
-    public String getNewsByTag(@PathVariable("tags") String tag) {
-        return tag;
+    public String getNewsByTag(@PathVariable("tags") String uriTag, Model model) {
+        List<String> tags = List.of(uriTag.split(" "));
+        List<NewsDto> newsList = publicationService.getNewsByTag(tags)
+                .stream().map(NewsDto::from).toList();
+        model.addAttribute("newsList", newsList);
+        return "newsTagSearch";
     }
 
 }

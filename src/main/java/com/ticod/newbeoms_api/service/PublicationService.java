@@ -154,4 +154,8 @@ public class PublicationService {
         return publicationRepository.findAll()
                 .stream().map(PublicationDateDto::from).toList();
     }
+
+    public List<News> getNewsByTag(List<String> tags) {
+        return new ArrayList<>();
+    }
 }
