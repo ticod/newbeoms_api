@@ -150,4 +150,7 @@ public class PublicationService {
                 .build();
     }
 
+    public List<PublicationDateDto> getPublicationDates() {
+        return new ArrayList<>();
+    }
 }
