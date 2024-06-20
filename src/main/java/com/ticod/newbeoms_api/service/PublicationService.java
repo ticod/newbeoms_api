@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PublicationService {
@@ -119,6 +118,36 @@ public class PublicationService {
                         .build()
         ).toList();
         newsRepository.saveAll(target);
+    }
+
+    /**
+     * 출간 날짜로 PublicationDto 생성
+     */
+    public PublicationDto getPublicationDto(LocalDate date) {
+        Publication publication = publicationRepository.findPublicationByPublicationDate(date);
+        if (publication == null) {
+            throw new IllegalStateException();
+        }
+
+        List<NewsDto> newsDtoList = newsRepository.findByPublication(publication)
+                .stream().map(NewsDto::from).toList();
+        List<GossipDto> gossipDtoList = gossipRepository.findByPublication(publication)
+                .stream().map(GossipDto::from).toList();
+        List<ComingSoonDto> comingSoonDtoList = comingSoonRepository.findByPublication(publication)
+                .stream().map(ComingSoonDto::from).toList();
+        List<HardwareNewsDto> hardwareNewsDtoList = hardwareNewsRepository.findByPublication(publication)
+                .stream().map(HardwareNewsDto::from).toList();
+        List<WorkCitedDto> workCitedDtoList = workCitedRepository.findByPublication(publication)
+                .stream().map(WorkCitedDto::from).toList();
+
+        return PublicationDto.builder()
+                .publicationDate(publication.getPublicationDate())
+                .newsDtoList(newsDtoList)
+                .gossipDtoList(gossipDtoList)
+                .comingSoonDtoList(comingSoonDtoList)
+                .hardwareNewsDtoList(hardwareNewsDtoList)
+                .workCitedDtoList(workCitedDtoList)
+                .build();
     }
 
 }
