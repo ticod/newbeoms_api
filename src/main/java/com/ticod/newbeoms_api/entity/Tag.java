@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @Entity
@@ -16,6 +19,9 @@ public class Tag {
 
     @Column(name = "content", nullable = false, length = 50)
     private String content;
+
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<NewsTag> newsTagList = new ArrayList<>();
 
     @Builder
     public Tag(String content) {
