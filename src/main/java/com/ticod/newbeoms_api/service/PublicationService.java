@@ -151,6 +151,7 @@ public class PublicationService {
     }
 
     public List<PublicationDateDto> getPublicationDates() {
-        return new ArrayList<>();
+        return publicationRepository.findAll()
+                .stream().map(PublicationDateDto::from).toList();
     }
 }

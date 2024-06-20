@@ -1,5 +1,6 @@
 package com.ticod.newbeoms_api.dto;
 
+import com.ticod.newbeoms_api.entity.Publication;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,10 @@ public class PublicationDateDto {
 
     public PublicationDateDto(LocalDate date) {
         this.date = date;
+    }
+
+    public static PublicationDateDto from(Publication publication) {
+        return new PublicationDateDto(publication.getPublicationDate());
     }
 
 }
