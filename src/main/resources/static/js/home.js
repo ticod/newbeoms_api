@@ -3,6 +3,8 @@ const newsLeftArrowButton = document.getElementById("news_left_arrow_button");
 const newsRightArrowButton = document.getElementById("news_right_arrow_button");
 const newsButton = document.getElementById("news_button");
 
+const PUBLICATION_URI = "/publication/";
+
 let newsCount = newsMainList.length - 1;
 
 function showNews(targetNewsCount) {
@@ -31,5 +33,5 @@ newsRightArrowButton.addEventListener('click', () => {
 });
 
 newsButton.addEventListener('click', () => {
-    window.location.href="layout.html";
+    window.location.href = PUBLICATION_URI + newsMainList[newsCount].id;
 });

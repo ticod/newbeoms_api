@@ -33,16 +33,10 @@
         </button>
 
         <button class="news-button" type="button" id="news_button">
-            <span class="news-main" id="news_3-3">
-                <img class="news-image" src="" alt="">
-                <span class="news-intro">기사 보기</span>
-            </span>
-            <span class="news-main" id="news-3-4">
-                <img class="news-image" src="/imgs/3-4.png" alt="">
-                <span class="news-intro">기사 보기</span>
-            </span>
-            <span class="news-main" id="news-4-1">
-                <img class="news-image" src="/imgs/4-1.png" alt="">
+            <span class="news-main" th:each="publicationDate : ${publicationDates}"
+                  th:id="${publicationDate.getDate()}">
+                <img class="news-image" src="/imgs/2024-04-18.png" alt=""
+                     th:src="|/imgs/${publicationDate.getDate()}.png|">
                 <span class="news-intro">기사 보기</span>
             </span>
         </button>
