@@ -27,12 +27,16 @@
     <div class="page-1">
         <div class="item item-sub">
             <div class="item-sub-box">
-                <div class="publication-date">[2024-04-18]</div>
+                <div class="publication-date" th:text="|[${publication.publicationDate}]|"></div>
             </div>
             <div class="item-sub-box weekly-game-news">
                 <div class="item-sub-box-header">WEEKLY GAME NEWS</div>
                 <div>Analyst 최범규</div>
-                <div><a class="text-underline" href="https://blog.naver.com/ddongmmelier">https://blog.naver.com/ddongmmelier</a></div>
+                <div>
+                    <a class="text-underline" href="https://blog.naver.com/ddongmmelier">
+                        https://blog.naver.com/ddongmmelier
+                    </a>
+                </div>
                 <br>
                 <div>Developer 권도훈</div>
             </div>
@@ -41,6 +45,12 @@
                     <b>GOSSIP</b>
                 </div>
                 <div class="gossip-contents" id="gossip-contents">
+                    <div class="gossip-content" th:each="gossip : ${publication.getGossipDtoList()}">
+                        [[${gossip.getTitle()}]]
+                        <a href="#" target="_blank" class="gossip-link"
+                           th:each="link, linkState : ${gossip.getLinks()}"
+                           th:href="${link}" th:text="|(${linkState.count})|"></a>
+                    </div>
                 </div>
             </div>
             <div class="item-sub-box comingsoon">
@@ -48,9 +58,10 @@
                     <b>COMING SOON</b>
                 </div>
                 <div class="comingsoon-contents" id="comingsoon-contents">
-                    <div class="comingsoon-box">
-                        <div class="comingsoon-day"></div>
-                        <div class="comingsoon-content"></div>
+                    <div class="comingsoon-box" th:each="comingSonn : ${publication.getComingSoonDtoList()}">
+                        <div class="comingsoon-day" th:text="${comingSonn.getDate()}"></div>
+                        <div class="comingsoon-content" th:each="content : ${comingSonn.getContents()}"
+                             th:text="${content}"></div>
                     </div>
                 </div>
             </div>
@@ -58,23 +69,33 @@
 
         <div class="item item-main">
             <div class="content-header">
-                <div class="content-title" id="news-title-1"></div>
-                <div class="content-subtitle" id="news-subtitle-1"></div>
+                <div class="content-title" id="news-title-1"
+                     th:text="${publication.getNewsDtoList().get(0).getTitle()}"></div>
+                <div class="content-subtitle" id="news-subtitle-1"
+                     th:text="${publication.getNewsDtoList().get(0).getSubtitle()}"></div>
             </div>
             <div class="content-img-box" id="news-img-1">
+                <img src="" class="news-img" th:if="${publication.getNewsDtoList().get(0).getImagePath() != ''}"
+                     th:src="|/imgs/${publication.getNewsDtoList().get(0).getImagePath()}|" alt="">
             </div>
             <div class="content-main">
-                <div id="news-content-1"></div>
+                <div id="news-content-1"
+                     th:utext="${publication.getNewsDtoList().get(0).getContent()}"></div>
             </div>
 
             <div class="content-header">
-                <div class="content-title" id="news-title-2"></div>
-                <div class="content-subtitle" id="news-subtitle-2"></div>
+                <div class="content-title" id="news-title-2"
+                     th:text="${publication.getNewsDtoList().get(1).getTitle()}"></div>
+                <div class="content-subtitle" id="news-subtitle-2"
+                     th:text="${publication.getNewsDtoList().get(1).getSubtitle()}"></div>
             </div>
             <div class="content-img-box" id="news-img-2">
+                <img src="" class="news-img" th:if="${publication.getNewsDtoList().get(1).getImagePath() != ''}"
+                     th:src="|/imgs/${publication.getNewsDtoList().get(1).getImagePath()}|" alt="">
             </div>
             <div class="content-main">
-                <div id="news-content-2"></div>
+                <div id="news-content-2"
+                     th:utext="${publication.getNewsDtoList().get(1).getContent()}"></div>
             </div>
         </div>
     </div>
@@ -84,22 +105,33 @@
     <div class="page-2">
         <div class="item item-main">
             <div class="content-header">
-                <div class="content-title" id="news-title-3"></div>
-                <div class="content-subtitle" id="news-subtitle-3"></div>
+                <div class="content-title" id="news-title-3"
+                     th:text="${publication.getNewsDtoList().get(2).getTitle()}"></div>
+                <div class="content-subtitle" id="news-subtitle-3"
+                     th:text="${publication.getNewsDtoList().get(2).getSubtitle()}"></div>
             </div>
             <div class="content-img-box" id="news-img-3">
+                <img src="" class="news-img" th:if="${publication.getNewsDtoList().get(2).getImagePath() != ''}"
+                     th:src="|/imgs/${publication.getNewsDtoList().get(2).getImagePath()}|" alt="">
             </div>
             <div class="content-main">
-                <div id="news-content-3"></div>
+                <div id="news-content-3"
+                     th:utext="${publication.getNewsDtoList().get(2).getContent()}"></div>
             </div>
+
             <div class="content-header">
-                <div class="content-title" id="news-title-4"></div>
-                <div class="content-subtitle" id="news-subtitle-4"></div>
+                <div class="content-title" id="news-title-4"
+                     th:text="${publication.getNewsDtoList().get(3).getTitle()}"></div>
+                <div class="content-subtitle" id="news-subtitle-4"
+                     th:text="${publication.getNewsDtoList().get(3).getSubtitle()}"></div>
             </div>
             <div class="content-img-box" id="news-img-4">
+                <img src="" class="news-img" th:if="${publication.getNewsDtoList().get(3).getImagePath() != ''}"
+                     th:src="|/imgs/${publication.getNewsDtoList().get(3).getImagePath()}|" alt="">
             </div>
             <div class="content-main">
-                <div id="news-content-4"></div>
+                <div id="news-content-4"
+                     th:utext="${publication.getNewsDtoList().get(3).getContent()}"></div>
             </div>
         </div>
 
@@ -109,11 +141,19 @@
                     HARDWARE NEWS
                 </div>
                 <div class="item-sub-box-content hardware-news-contents" id="hardware-news-contents">
+                    <div class="hardware-news-contents"
+                         th:each="hardwareNews : ${publication.getHardwareNewsDtoList()}">
+                        <a href="#" th:href="${hardwareNews.getLink()}" th:text="${hardwareNews.getContent()}"></a>
+                    </div>
                 </div>
             </div>
             <div class="item-sub-box work-cited" >
                 <div class="item-sub-box-header">WORK CITED</div>
-                <div id="work-cited-contents"></div>
+                <div id="work-cited-contents">
+                    <div class="work-cited-content" th:each="workCited : ${publication.getWorkCitedDtoList()}">
+                        <a href="#" th:href="${workCited.getLink()}" th:text="${workCited.getLink()}"></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
