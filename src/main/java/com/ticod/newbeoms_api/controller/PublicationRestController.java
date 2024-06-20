@@ -2,9 +2,10 @@ package com.ticod.newbeoms_api.controller;
 
 import com.ticod.newbeoms_api.dto.PublicationDto;
 import com.ticod.newbeoms_api.service.PublicationService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 public class PublicationRestController {
@@ -22,6 +23,14 @@ public class PublicationRestController {
     public String addPublication(@RequestBody PublicationDto publicationDto) {
         publicationService.addPublcation(publicationDto);
         return "ok";
+    }
+
+    /**
+     * 해당 출간일의 기사 반환
+     */
+    @GetMapping("/rest/publication/{date}")
+    public PublicationDto getPublicationByDate(@PathVariable("date") LocalDate date) {
+        return publicationService.getPublicationDto(date);
     }
 
 }
