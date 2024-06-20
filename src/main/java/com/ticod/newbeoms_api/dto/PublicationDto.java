@@ -4,12 +4,14 @@ import com.ticod.newbeoms_api.entity.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @Setter
+@ToString
 public class PublicationDto {
 
     private LocalDate publicationDate;
@@ -40,7 +42,7 @@ public class PublicationDto {
                                     List<HardwareNewsDto> hardwareNewsDtoList,
                                     List<WorkCitedDto> workCitedDtoList) {
 
-        PublicationDto result = PublicationDto.builder()
+        return PublicationDto.builder()
                 .publicationDate(publication.getPublicationDate())
                 .newsDtoList(newsDtoList)
                 .comingSoonDtoList(comingSoonDtoList)
@@ -48,8 +50,6 @@ public class PublicationDto {
                 .hardwareNewsDtoList(hardwareNewsDtoList)
                 .workCitedDtoList(workCitedDtoList)
                 .build();
-
-        return result;
 
     }
 
