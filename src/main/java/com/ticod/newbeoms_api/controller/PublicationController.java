@@ -46,7 +46,7 @@ public class PublicationController {
      */
     @GetMapping("/publication/news/{tags}")
     public String getNewsByTag(@PathVariable("tags") String uriTag, Model model) {
-        List<String> tags = List.of(uriTag.split(" "));
+        List<String> tags = List.of(uriTag.trim().split(" "));
         List<NewsDto> newsList = publicationService.getNewsByTag(tags)
                 .stream().map(NewsDto::from).toList();
         model.addAttribute("newsList", newsList);
