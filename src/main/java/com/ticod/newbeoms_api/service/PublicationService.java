@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+//    TODO: Service 단에서 DTO 제거하기
 @Service
 public class PublicationService {
 
@@ -21,11 +22,14 @@ public class PublicationService {
     private final GossipRepository gossipRepository;
     private final GossipLinkRepository gossipLinkRepository;
     private final HardwareNewsRepository hardwareNewsRepository;
+    private final TagRepository tagRepository;
+    private final NewsTagRepository newsTagRepository;
 
     public PublicationService(PublicationRepository publicationRepository, NewsRepository newsRepository, ComingSoonRepository comingSoonRepository, WorkCitedRepository workCitedRepository,
                               ComingSoonContentRepository comingSoonContentRepository,
                               GossipRepository gossipRepository,
-                              GossipLinkRepository gossipLinkRepository, HardwareNewsRepository hardwareNewsRepository) {
+                              GossipLinkRepository gossipLinkRepository, HardwareNewsRepository hardwareNewsRepository,
+                              TagRepository tagRepository, NewsTagRepository newsTagRepository) {
         this.publicationRepository = publicationRepository;
         this.newsRepository = newsRepository;
         this.comingSoonRepository = comingSoonRepository;
@@ -34,6 +38,8 @@ public class PublicationService {
         this.gossipRepository = gossipRepository;
         this.gossipLinkRepository = gossipLinkRepository;
         this.hardwareNewsRepository = hardwareNewsRepository;
+        this.tagRepository = tagRepository;
+        this.newsTagRepository = newsTagRepository;
     }
 
     /**
@@ -108,16 +114,27 @@ public class PublicationService {
 
     @Transactional
     protected void addNewsList(List<NewsDto> newsDtoList, Publication publication) {
-        List<News> target = newsDtoList.stream().map(
-                newsDto -> News.builder().title(newsDto.getTitle())
-                        .publication(publication)
-                        .subtitle(newsDto.getSubtitle())
-                        .newsDate(newsDto.getDate())
-                        .content(newsDto.getContent())
-                        .imagePath(newsDto.getImagePath())
-                        .build()
-        ).toList();
-        newsRepository.saveAll(target);
+
+        for (NewsDto newsDto : newsDtoList) {
+            News news = NewsDto.toEntity(newsDto, publication);
+            List<Tag> tags = newsDto.getTags().stream().map(
+                    content -> TagDto.toEntity(new TagDto(content))
+            ).toList();
+            List<NewsTag> newsTags = new ArrayList<>();
+            for (Tag tag : tags) {
+                Tag findTag = tagRepository.findByContent(tag.getContent());
+                if (findTag == null) {
+                    tagRepository.save(tag);
+                    NewsTag newsTag = NewsTag.builder().news(news).tag(tag).build();
+                    newsTags.add(newsTag);
+                } else {
+                    NewsTag newsTag = NewsTag.builder().news(news).tag(findTag).build();
+                    newsTags.add(newsTag);
+                }
+            }
+            newsRepository.save(news);
+            newsTagRepository.saveAll(newsTags);
+        }
     }
 
     /**
@@ -155,7 +172,7 @@ public class PublicationService {
                 .stream().map(PublicationDateDto::from).toList();
     }
 
-    public List<News> getNewsByTag(List<String> tags) {
-        return new ArrayList<>();
+    public List<Tag> getTagsByContents(List<String> tags) {
+        return tagRepository.findByTags(tags);
     }
 }
