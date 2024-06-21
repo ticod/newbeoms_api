@@ -1,7 +1,6 @@
 package com.ticod.newbeoms_api.dto;
 
 import com.ticod.newbeoms_api.entity.News;
-import com.ticod.newbeoms_api.entity.NewsTag;
 import com.ticod.newbeoms_api.entity.Publication;
 import lombok.Builder;
 import lombok.Getter;
