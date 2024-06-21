@@ -17,7 +17,7 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "content", nullable = false, length = 50)
+    @Column(name = "content", nullable = false, length = 100, unique = true)
     private String content;
 
     @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -27,4 +27,5 @@ public class Tag {
     public Tag(String content) {
         this.content = content;
     }
+
 }

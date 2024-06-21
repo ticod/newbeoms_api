@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "news_tag", schema = "newbeoms_db")
+@Table(name = "news_tag", schema = "newbeoms_db",
+        uniqueConstraints = @UniqueConstraint(name="UniqueNewsAndTag", columnNames = {"news_id", "tag_id"})
+)
 public class NewsTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
