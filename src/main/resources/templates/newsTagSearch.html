@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEW BEOMS | Search</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/news-header.css">
+    <link rel="stylesheet" href="/css/search-layout.css">
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-img-box"><img class="logo-img" src="/imgs/logo.png" alt=""></div>
+    <div class="logo">
+        <div class="logo-title"><a href="/">NEW BEOMS</a></div>
+        <div class="logo-subtitle">간편한 게임 소식지</div>
+    </div>
+</div>
+
+<hr>
+
+<div class="container">
+    <div class="item news">
+
+        <div class="news-box" th:if="${!#lists.isEmpty(newsList)}" th:each="news : ${newsList}">
+            <div class="content-header">
+                <a class="content-title" id="news-title-1"
+                     th:text="${news.getTitle()}"></a>
+                <div class="content-subtitle" id="news-subtitle-1"
+                     th:text="${news.getSubtitle()}"></div>
+            </div>
+            <div class="content-img-box" id="news-img-1">
+                <img src="" class="news-img" th:if="${news.getImagePath() != ''}"
+                     th:src="|/imgs/${news.getImagePath()}|" alt="">
+            </div>
+            <div class="content-main">
+                <div id="news-content-1"
+                     th:utext="${news.getContent()}"></div>
+            </div>
+            <hr>
+        </div>
+        <div class="news-box no-search" th:unless="${!#lists.isEmpty(newsList)}">
+            <p>검색 결과가 없습니다.</p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
