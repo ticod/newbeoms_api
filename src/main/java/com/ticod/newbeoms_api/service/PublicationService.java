@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //    TODO: Service 단에서 DTO 제거하기
 @Service
@@ -172,7 +174,12 @@ public class PublicationService {
                 .stream().map(PublicationDateDto::from).toList();
     }
 
-    public List<Tag> getTagsByContents(List<String> tags) {
-        return tagRepository.findByTags(tags);
+    public List<Tag> getTagsByContents(List<String> searchKeywords) {
+        Set<Tag> tagSet = new HashSet<>();
+        for (String searchKeyword : searchKeywords) {
+            List<Tag> tags = tagRepository.findByContentContaining(searchKeyword);
+            tagSet.addAll(tags);
+        }
+        return tagSet.stream().toList();
     }
 }
