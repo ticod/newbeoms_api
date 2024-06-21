@@ -2,6 +2,7 @@ package com.ticod.newbeoms_api.dto;
 
 import com.ticod.newbeoms_api.entity.News;
 import com.ticod.newbeoms_api.entity.NewsTag;
+import com.ticod.newbeoms_api.entity.Publication;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,6 +48,17 @@ public class NewsDto {
                 .content(news.getContent())
                 .imagePath(news.getImagePath())
                 .date(news.getNewsDate())
+                .build();
+    }
+
+    public static News toEntity(NewsDto newsDto, Publication publication) {
+        return News.builder()
+                .publication(publication)
+                .title(newsDto.getTitle())
+                .subtitle(newsDto.getSubtitle())
+                .content(newsDto.getContent())
+                .imagePath(newsDto.getImagePath())
+                .newsDate(newsDto.getDate())
                 .build();
     }
 
