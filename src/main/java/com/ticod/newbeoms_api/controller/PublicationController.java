@@ -49,14 +49,18 @@ public class PublicationController {
      */
     @GetMapping("/publication/news/{tags}")
     public String getNewsByTag(@PathVariable("tags") String uriTag, Model model) {
+        // 문자열 정리
         List<String> tags = List.of(uriTag.trim().split(" "));
+        // 태그 추출
         List<Tag> tagList = publicationService.getTagsByContents(tags);
+        // 태그에 따른 기사 정리 및 중복된 기사 제거
         Set<NewsDto> result = new HashSet<>();
         for (Tag tag : tagList) {
             result.addAll(tag.getNewsTagList().stream().map(
                     newsTag -> NewsDto.from(newsTag.getNews())
             ).toList());
         }
+
         model.addAttribute("newsList", result);
         return "newsTagSearch";
     }
