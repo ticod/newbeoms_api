@@ -32,16 +32,6 @@ public class NewsDto {
         this.tags = tags;
     }
 
-    public static NewsDto of(News news, List<NewsTag> newsTags) {
-        return NewsDto.builder().title(news.getTitle())
-                .subtitle(news.getSubtitle())
-                .content(news.getContent())
-                .imagePath(news.getImagePath())
-                .date(news.getNewsDate())
-                .tags(newsTags.stream().map(newsTag -> newsTag.getTag().getContent()).toList())
-                .build();
-    }
-
     public static NewsDto from(News news) {
         return NewsDto.builder().title(news.getTitle())
                 .subtitle(news.getSubtitle())

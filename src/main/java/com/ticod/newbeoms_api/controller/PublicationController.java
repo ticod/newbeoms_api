@@ -36,15 +36,6 @@ public class PublicationController {
     }
 
     /**
-     * 출간일 및 기사 추가
-     */
-    @PostMapping("/publication")
-    public String addPublication(@RequestBody PublicationDto publicationDto) {
-        log.info(publicationDto.toString());
-        return "ok";
-    }
-
-    /**
      * 해당 태그에 관련된 기사 반환
      */
     @GetMapping("/publication/news/{tags}")
