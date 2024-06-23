@@ -11,9 +11,7 @@
     color: #033b8e;
     font-weight: 800;
 
-    /* TODO: 둘 중 하나 택 1 */
     border-bottom: 1px solid #033b8e;
-    /* text-decoration: underline; */
 }
 
 .content-img-box > img {
