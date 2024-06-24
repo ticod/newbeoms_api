@@ -1,6 +1,5 @@
 package com.ticod.newbeoms_api.service;
 
-import com.ticod.newbeoms_api.dto.*;
 import com.ticod.newbeoms_api.entity.*;
 import com.ticod.newbeoms_api.repository.*;
 import org.springframework.stereotype.Service;
@@ -112,11 +111,6 @@ public class PublicationService {
         return workCitedRepository.findByPublication(publication);
     }
 
-    public List<PublicationDateDto> getPublicationDates() {
-        return publicationRepository.findAll()
-                .stream().map(PublicationDateDto::from).toList();
-    }
-
     public List<Tag> getTagsByContents(List<String> searchKeywords) {
         Set<Tag> tagSet = new HashSet<>();
         for (String searchKeyword : searchKeywords) {
@@ -124,5 +118,12 @@ public class PublicationService {
             tagSet.addAll(tags);
         }
         return tagSet.stream().toList();
+    }
+
+    /**
+     *  모든 Publication 반환
+     */
+    public List<Publication> getPublications() {
+        return publicationRepository.findAll();
     }
 }

@@ -19,7 +19,9 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        List<PublicationDateDto> publicationDates = publicationService.getPublicationDates();
+        List<PublicationDateDto> publicationDates = publicationService.getPublications().stream()
+                .map(PublicationDateDto::from)
+                .toList();
         model.addAttribute("publicationDates", publicationDates);
         return "home";
     }
