@@ -1,13 +1,15 @@
 package com.ticod.newbeoms_api.dto;
 
-import com.ticod.newbeoms_api.entity.News;
-import com.ticod.newbeoms_api.entity.Publication;
+import com.ticod.newbeoms_api.entity.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -49,6 +51,21 @@ public class NewsDto {
                 .imagePath(newsDto.getImagePath())
                 .newsDate(newsDto.getDate())
                 .build();
+    }
+
+    public static List<Tag> toTags(NewsDto newsDto) {
+        return newsDto.getTags().stream()
+                .map(Tag::new)
+                .toList();
+    }
+
+    public static Map<News, List<Tag>> toEntityMap(NewsDto newsDto, Publication publication) {
+        News news = NewsDto.toEntity(newsDto, publication);
+        List<Tag> tags = NewsDto.toTags(newsDto);
+
+        Map<News, List<Tag>> result = new HashMap<>();
+        result.put(news, tags);
+        return result;
     }
 
 }
