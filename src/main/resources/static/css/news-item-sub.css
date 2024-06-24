@@ -29,31 +29,31 @@
 }
 
 .gossip-content {
-    margin: 0.25rem 0;
+    margin: 0.4rem 0;
 }
 
 .gossip-link {
-    margin: 0 0.25rem;
+    margin: 0 0.2rem;
     text-decoration: underline;
 }
 
 /* coming-soon */
-.comingsoon-box {
-    margin: 0.75rem 0;
+.coming-soon-box {
+    margin: 0.8rem 0;
 }
 
-.comingsoon {
+.coming-soon {
     background-color: #808080;
     color: white;
 }
 
-.coming-soon {
-    font-size : 0.75rem;
-}
-
-.comingsoon-day {
+.coming-soon-day {
     font-size: 1rem;
     font-weight: bold;
+}
+
+.coming-soon-content {
+    font-size: 0.9rem;
 }
 
 
@@ -65,13 +65,16 @@
 
 .hardware-news-contents {
     text-decoration: underline;
+    margin-bottom: 0.8rem;
 }
 
 
 /* work-cited */
 .work-cited {
+    font-size: 0.8rem;
     background-color: #808080;
     color: white;
+    margin-bottom: 0.4rem;
 }
 
 .item-sub-box-header {

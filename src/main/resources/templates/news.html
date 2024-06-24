@@ -53,15 +53,15 @@
                     </div>
                 </div>
             </div>
-            <div class="item-sub-box comingsoon">
+            <div class="item-sub-box coming-soon">
                 <div class="item-sub-box-header">
                     <b>COMING SOON</b>
                 </div>
-                <div class="comingsoon-contents" id="comingsoon-contents">
-                    <div class="comingsoon-box" th:each="comingSonn : ${publication.getComingSoonDtoList()}">
-                        <div class="comingsoon-day" th:text="${comingSonn.getDate()}"></div>
-                        <div class="comingsoon-content" th:each="content : ${comingSonn.getContents()}"
-                             th:text="${content}"></div>
+                <div class="coming-soon-contents" id="coming-soon-contents">
+                    <div class="coming-soon-box" th:each="comingSonn : ${publication.getComingSoonDtoList()}">
+                        <div class="coming-soon-day" th:text="${comingSonn.getDate()}"></div>
+                        <div class="coming-soon-content" th:each="content : ${comingSonn.getContents()}"
+                             th:text="|- ${content}|"></div>
                     </div>
                 </div>
             </div>
@@ -142,16 +142,16 @@
                 </div>
                 <div class="item-sub-box-content hardware-news-contents" id="hardware-news-contents">
                     <div class="hardware-news-contents"
-                         th:each="hardwareNews : ${publication.getHardwareNewsDtoList()}">
-                        <a href="#" th:href="${hardwareNews.getLink()}" th:text="${hardwareNews.getContent()}"></a>
+                         th:each="hardwareNews, state : ${publication.getHardwareNewsDtoList()}">
+                        <a href="#" th:href="${hardwareNews.getLink()}" th:text="|${state.count}. ${hardwareNews.getContent()}|"></a>
                     </div>
                 </div>
             </div>
             <div class="item-sub-box work-cited" >
                 <div class="item-sub-box-header">WORK CITED</div>
                 <div id="work-cited-contents">
-                    <div class="work-cited-content" th:each="workCited : ${publication.getWorkCitedDtoList()}">
-                        <a href="#" th:href="${workCited.getLink()}" th:text="${workCited.getLink()}"></a>
+                    <div class="work-cited-content" th:each="workCited, state : ${publication.getWorkCitedDtoList()}">
+                        <a href="#" th:href="${workCited.getLink()}" th:text="|${state.count}. ${workCited.getLink()}|"></a>
                     </div>
                 </div>
             </div>
