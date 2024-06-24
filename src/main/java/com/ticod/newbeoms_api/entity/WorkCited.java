@@ -18,7 +18,7 @@ public class WorkCited {
     @JoinColumn(name = "publication_id", nullable = false)
     private Publication publication;
 
-    @Column(name = "link", nullable = false, length = 200)
+    @Column(name = "link", nullable = false, length = 500)
     private String link;
 
     @Builder
