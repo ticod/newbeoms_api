@@ -55,6 +55,12 @@ public class PublicationDto {
 
     }
 
+    public static Publication toPublication(PublicationDto publicationDto) {
+        return Publication.builder()
+                .publicationDate(publicationDto.getPublicationDate())
+                .build();
+    }
+
     public static Map<Gossip, List<GossipLink>> getGossipLinkMap(PublicationDto publicationDto,
                                                                 Publication publication) {
         return publicationDto.getGossipDtoList().stream()
