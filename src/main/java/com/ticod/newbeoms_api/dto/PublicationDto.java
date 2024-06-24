@@ -69,4 +69,12 @@ public class PublicationDto {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
+    public static Map<ComingSoon, List<ComingSoonContent>> getComingSoonMap(PublicationDto publicationDto,
+                                                                            Publication publication) {
+        return publicationDto.getComingSoonDtoList().stream()
+                .flatMap(comingSoonDto -> ComingSoonDto.toEntityMap(comingSoonDto, publication)
+                        .entrySet().stream())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
 }
