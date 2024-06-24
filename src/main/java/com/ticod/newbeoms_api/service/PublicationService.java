@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 //    TODO: Service 단에서 DTO 제거하기
 @Service
@@ -52,90 +50,46 @@ public class PublicationService {
     }
 
     /**
-     * 출판물 전체 내용 추가
+     * 출판물 전체 추가 - DTO 제거
      */
     @Transactional
-    public void addPublcation(PublicationDto publicationDto) {
-        Publication publication = Publication.builder()
-                .publicationDate(publicationDto.getPublicationDate()).build();
+    public void addPublication(Publication publication,
+                               Map<News, List<Tag>> newsTagMap,
+                               Map<Gossip, List<GossipLink>> gossipLinkMap,
+                               Map<ComingSoon, List<ComingSoonContent>> comingSoonContentMap,
+                               List<HardwareNews> hardwareNewsList,
+                               List<WorkCited> workCitedList) {
 
-        if (getPublication(publicationDto.getPublicationDate()) != null) {
-            return;
-        }
         publicationRepository.save(publication);
-        addNewsList(publicationDto.getNewsDtoList(), publication);
-        addComingSoonList(publicationDto.getComingSoonDtoList(), publication);
-        addGossipList(publicationDto, publication);
-        workCitedRepository.saveAll(
-                publicationDto.getWorkCitedDtoList().stream()
-                        .map(workCitedDto -> workCitedDto.toEntity(publication)).toList()
-        );
-        hardwareNewsRepository.saveAll(
-                publicationDto.getHardwareNewsDtoList().stream()
-                        .map(hardwareNewsDto -> hardwareNewsDto.toEntity(publication)).toList()
-        );
 
+        saveNewsAndTag(newsTagMap);
+
+        gossipRepository.saveAll(gossipLinkMap.keySet());
+        gossipLinkRepository.saveAll(gossipLinkMap.values().stream()
+                .flatMap(List::stream).collect(Collectors.toList()));
+
+        comingSoonRepository.saveAll(comingSoonContentMap.keySet());
+        comingSoonContentRepository.saveAll(comingSoonContentMap.values().stream()
+                .flatMap(List::stream).collect(Collectors.toList()));
+
+        hardwareNewsRepository.saveAll(hardwareNewsList);
+        workCitedRepository.saveAll(workCitedList);
     }
 
-    @Transactional
-    protected void addGossipList(PublicationDto publicationDto, Publication publication) {
-        List<Gossip> gossipList = new ArrayList<>();
-        List<GossipLink> gossipLinkList = new ArrayList<>();
-        for (GossipDto gossipDto : publicationDto.getGossipDtoList()) {
-            Gossip target = Gossip.builder()
-                    .publication(publication)
-                    .title(gossipDto.getTitle())
-                    .build();
-            gossipList.add(target);
-            for (String gossipLink : gossipDto.getLinks()) {
-                gossipLinkList.add(GossipLink.builder()
-                        .gossip(target).link(gossipLink).build());
-            }
-        }
-        gossipRepository.saveAll(gossipList);
-        gossipLinkRepository.saveAll(gossipLinkList);
-    }
-
-    private void addComingSoonList(List<ComingSoonDto> comingSoonDtoList, Publication publication) {
-        List<ComingSoon> comingSoonList = new ArrayList<>();
-        List<ComingSoonContent> comingSoonContentList = new ArrayList<>();
-        for (ComingSoonDto comingSoonDto : comingSoonDtoList) {
-            ComingSoon target = ComingSoon.builder()
-                    .publication(publication)
-                    .comingSoonDate(comingSoonDto.getDate()).build();
-            comingSoonList.add(target);
-            for (String comingSoonContent : comingSoonDto.getContents()) {
-                comingSoonContentList.add(ComingSoonContent.builder()
-                        .comingSoon(target)
-                        .content(comingSoonContent).build());
-            }
-        }
-        comingSoonRepository.saveAll(comingSoonList);
-        comingSoonContentRepository.saveAll(comingSoonContentList);
-    }
-
-    @Transactional
-    protected void addNewsList(List<NewsDto> newsDtoList, Publication publication) {
-
-        for (NewsDto newsDto : newsDtoList) {
-            News news = NewsDto.toEntity(newsDto, publication);
-            List<Tag> tags = newsDto.getTags().stream().map(
-                    content -> TagDto.toEntity(new TagDto(content))
-            ).toList();
-            List<NewsTag> newsTags = new ArrayList<>();
-            for (Tag tag : tags) {
+    private void saveNewsAndTag(Map<News, List<Tag>> newsTagMap) {
+        for (News news : newsTagMap.keySet()) {
+            List<NewsTag> newsTagList = new ArrayList<>();
+            for (Tag tag : newsTagMap.get(news)) {
                 Tag findTag = tagRepository.findByContent(tag.getContent());
                 if (findTag == null) {
                     tagRepository.save(tag);
-                    NewsTag newsTag = NewsTag.builder().news(news).tag(tag).build();
-                    newsTags.add(newsTag);
+                    newsTagList.add(NewsTag.builder().news(news).tag(tag).build());
                 } else {
-                    NewsTag newsTag = NewsTag.builder().news(news).tag(findTag).build();
-                    newsTags.add(newsTag);
+                    newsTagList.add(NewsTag.builder().news(news).tag(findTag).build());
                 }
             }
             newsRepository.save(news);
-            newsTagRepository.saveAll(newsTags);
+            newsTagRepository.saveAll(newsTagList);
         }
     }
 
