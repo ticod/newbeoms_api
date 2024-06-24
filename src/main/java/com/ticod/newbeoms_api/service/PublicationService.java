@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//    TODO: Service 단에서 DTO 제거하기
 @Service
 public class PublicationService {
 
@@ -50,7 +49,7 @@ public class PublicationService {
     }
 
     /**
-     * 출판물 전체 추가 - DTO 제거
+     * 출판물 전체 추가
      */
     @Transactional
     public void addPublication(Publication publication,
@@ -93,34 +92,24 @@ public class PublicationService {
         }
     }
 
-    /**
-     * 출간 날짜로 PublicationDto 생성
-     */
-    public PublicationDto getPublicationDto(LocalDate date) {
-        Publication publication = publicationRepository.findPublicationByPublicationDate(date);
-        if (publication == null) {
-            throw new IllegalStateException();
-        }
+    public List<News> getNewsList(Publication publication) {
+        return newsRepository.findByPublication(publication);
+    }
 
-        List<NewsDto> newsDtoList = newsRepository.findByPublication(publication)
-                .stream().map(NewsDto::from).toList();
-        List<GossipDto> gossipDtoList = gossipRepository.findByPublication(publication)
-                .stream().map(GossipDto::from).toList();
-        List<ComingSoonDto> comingSoonDtoList = comingSoonRepository.findByPublication(publication)
-                .stream().map(ComingSoonDto::from).toList();
-        List<HardwareNewsDto> hardwareNewsDtoList = hardwareNewsRepository.findByPublication(publication)
-                .stream().map(HardwareNewsDto::from).toList();
-        List<WorkCitedDto> workCitedDtoList = workCitedRepository.findByPublication(publication)
-                .stream().map(WorkCitedDto::from).toList();
+    public List<Gossip> getGossipList(Publication publication) {
+        return gossipRepository.findByPublication(publication);
+    }
 
-        return PublicationDto.builder()
-                .publicationDate(publication.getPublicationDate())
-                .newsDtoList(newsDtoList)
-                .gossipDtoList(gossipDtoList)
-                .comingSoonDtoList(comingSoonDtoList)
-                .hardwareNewsDtoList(hardwareNewsDtoList)
-                .workCitedDtoList(workCitedDtoList)
-                .build();
+    public List<ComingSoon> getComingSoonList(Publication publication) {
+        return comingSoonRepository.findByPublication(publication);
+    }
+
+    public List<HardwareNews> getHardwareNewsList(Publication publication) {
+        return hardwareNewsRepository.findByPublication(publication);
+    }
+
+    public List<WorkCited> getWorkCitedList(Publication publication) {
+        return workCitedRepository.findByPublication(publication);
     }
 
     public List<PublicationDateDto> getPublicationDates() {

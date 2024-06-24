@@ -1,7 +1,7 @@
 package com.ticod.newbeoms_api.controller;
 
-import com.ticod.newbeoms_api.dto.NewsDto;
-import com.ticod.newbeoms_api.dto.PublicationDto;
+import com.ticod.newbeoms_api.dto.*;
+import com.ticod.newbeoms_api.entity.Publication;
 import com.ticod.newbeoms_api.entity.Tag;
 import com.ticod.newbeoms_api.service.PublicationService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +29,30 @@ public class PublicationController {
      */
     @GetMapping("/publication/{date}")
     public String getPublicationByDate(@PathVariable("date") LocalDate date, Model model) {
-        log.info(String.valueOf(date));
-        PublicationDto publicationDto = publicationService.getPublicationDto(date);
+        Publication publication = publicationService.getPublication(date);
+        if (publication == null) {
+            // TODO: 404 페이지 만들기
+            return "404";
+        }
+        List<NewsDto> newsDtoList = publicationService.getNewsList(publication).stream()
+                .map(NewsDto::from)
+                .toList();
+        List<GossipDto> gossipDtoList = publicationService.getGossipList(publication).stream()
+                .map(GossipDto::from)
+                .toList();
+        List<ComingSoonDto> comingSoonDtoList = publicationService.getComingSoonList(publication).stream()
+                .map(ComingSoonDto::from)
+                .toList();
+        List<HardwareNewsDto> hardwareNewsDtoList = publicationService.getHardwareNewsList(publication).stream()
+                .map(HardwareNewsDto::from)
+                .toList();
+        List<WorkCitedDto> workCitedDtoList = publicationService.getWorkCitedList(publication).stream()
+                .map(WorkCitedDto::from)
+                .toList();
+
+        PublicationDto publicationDto = PublicationDto.of(publication, newsDtoList,
+                comingSoonDtoList, gossipDtoList,
+                hardwareNewsDtoList, workCitedDtoList);
         model.addAttribute("publication", publicationDto);
         return "news";
     }
