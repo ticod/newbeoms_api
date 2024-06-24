@@ -7,7 +7,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -51,6 +54,13 @@ public class PublicationDto {
                 .workCitedDtoList(workCitedDtoList)
                 .build();
 
+    }
+
+    public static Map<Gossip, List<GossipLink>> toGossipLinkMap(PublicationDto publicationDto,
+                                                                Publication publication) {
+        return publicationDto.getGossipDtoList().stream()
+                .flatMap(gossipDto -> GossipDto.toEntityMap(gossipDto, publication).entrySet().stream())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
 }
