@@ -1,17 +1,13 @@
 package com.ticod.newbeoms_api.controller;
 
-import com.ticod.newbeoms_api.dto.NewsDto;
 import com.ticod.newbeoms_api.dto.PublicationDto;
 import com.ticod.newbeoms_api.entity.*;
 import com.ticod.newbeoms_api.service.PublicationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Slf4j
 @RestController
