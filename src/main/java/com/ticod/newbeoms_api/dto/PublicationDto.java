@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -56,10 +55,17 @@ public class PublicationDto {
 
     }
 
-    public static Map<Gossip, List<GossipLink>> toGossipLinkMap(PublicationDto publicationDto,
+    public static Map<Gossip, List<GossipLink>> getGossipLinkMap(PublicationDto publicationDto,
                                                                 Publication publication) {
         return publicationDto.getGossipDtoList().stream()
                 .flatMap(gossipDto -> GossipDto.toEntityMap(gossipDto, publication).entrySet().stream())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public static Map<News, List<Tag>> getNewsTagMap(PublicationDto publicationDto,
+                                                    Publication publication) {
+        return publicationDto.getNewsDtoList().stream()
+                .flatMap(newsDto -> NewsDto.toEntityMap(newsDto, publication).entrySet().stream())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
