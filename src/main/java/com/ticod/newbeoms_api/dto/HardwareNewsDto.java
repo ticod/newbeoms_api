@@ -26,11 +26,11 @@ public class HardwareNewsDto {
                 .build();
     }
 
-    public HardwareNews toEntity(Publication publication) {
+    public static HardwareNews toEntity(HardwareNewsDto hardwareNewsDto, Publication publication) {
         return HardwareNews.builder()
                 .publication(publication)
-                .content(this.content)
-                .link(this.link)
+                .content(hardwareNewsDto.getContent())
+                .link(hardwareNewsDto.getLink())
                 .build();
     }
 

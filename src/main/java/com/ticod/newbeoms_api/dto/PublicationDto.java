@@ -77,4 +77,18 @@ public class PublicationDto {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
+    public static List<HardwareNews> getHardwareNewsList(PublicationDto publicationDto,
+                                                         Publication publication) {
+        return publicationDto.getHardwareNewsDtoList().stream()
+                .map(hardwareNewsDto -> HardwareNewsDto.toEntity(hardwareNewsDto, publication))
+                .toList();
+    }
+
+    public static List<WorkCited> getWorkCitedList(PublicationDto publicationDto,
+                                                   Publication publication) {
+        return publicationDto.getWorkCitedDtoList().stream()
+                .map(workCitedDto -> WorkCitedDto.toEntity(workCitedDto, publication))
+                .toList();
+    }
+
 }

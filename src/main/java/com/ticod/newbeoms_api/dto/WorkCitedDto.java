@@ -23,10 +23,10 @@ public class WorkCitedDto {
                 .build();
     }
 
-    public WorkCited toEntity(Publication publication) {
+    public static WorkCited toEntity(WorkCitedDto workCitedDto, Publication publication) {
         return WorkCited.builder()
                 .publication(publication)
-                .link(this.link)
+                .link(workCitedDto.getLink())
                 .build();
     }
 }
