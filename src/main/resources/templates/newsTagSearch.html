@@ -24,10 +24,11 @@
     <div class="item news">
 
         <div class="news-box" th:if="${!#lists.isEmpty(newsList)}" th:each="news : ${newsList}">
+            <div>기사 제목을 누르면 해당 기사로 이동합니다</div>
             <div class="content-header">
-                <a class="content-title" id="news-title-1"
+                <a class="content-title" th:href="|/publication/${news.getPublicationDate()}#${news.getTitle}|"
                      th:text="${news.getTitle()}"></a>
-                <div class="content-subtitle" id="news-subtitle-1"
+                <div class="content-subtitle"
                      th:text="${news.getSubtitle()}"></div>
             </div>
             <div class="content-img-box" id="news-img-1">
@@ -41,7 +42,7 @@
             <hr>
         </div>
         <div class="news-box no-search" th:unless="${!#lists.isEmpty(newsList)}">
-            <p>검색 결과가 없습니다.</p>
+            <div><p>검색 결과가 없습니다.</p><a href="/">돌아가기</a></div>
         </div>
 
     </div>
