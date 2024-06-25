@@ -69,7 +69,7 @@
 
         <div class="item item-main">
             <div class="content-header">
-                <div class="content-title" id="news-title-1"
+                <div class="content-title" th:id="${publication.getNewsDtoList().get(0).getTitle()}"
                      th:text="${publication.getNewsDtoList().get(0).getTitle()}"></div>
                 <div class="content-subtitle" id="news-subtitle-1"
                      th:text="${publication.getNewsDtoList().get(0).getSubtitle()}"></div>
@@ -84,7 +84,7 @@
             </div>
 
             <div class="content-header">
-                <div class="content-title" id="news-title-2"
+                <div class="content-title" th:id="${publication.getNewsDtoList().get(1).getTitle()}"
                      th:text="${publication.getNewsDtoList().get(1).getTitle()}"></div>
                 <div class="content-subtitle" id="news-subtitle-2"
                      th:text="${publication.getNewsDtoList().get(1).getSubtitle()}"></div>
@@ -105,7 +105,7 @@
     <div class="page-2">
         <div class="item item-main">
             <div class="content-header">
-                <div class="content-title" id="news-title-3"
+                <div class="content-title" th:id="${publication.getNewsDtoList().get(0).getTitle()}"
                      th:text="${publication.getNewsDtoList().get(2).getTitle()}"></div>
                 <div class="content-subtitle" id="news-subtitle-3"
                      th:text="${publication.getNewsDtoList().get(2).getSubtitle()}"></div>
@@ -120,7 +120,7 @@
             </div>
 
             <div class="content-header">
-                <div class="content-title" id="news-title-4"
+                <div class="content-title" th:id="${publication.getNewsDtoList().get(3).getTitle()}"
                      th:text="${publication.getNewsDtoList().get(3).getTitle()}"></div>
                 <div class="content-subtitle" id="news-subtitle-4"
                      th:text="${publication.getNewsDtoList().get(3).getSubtitle()}"></div>
