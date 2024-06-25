@@ -67,14 +67,14 @@ public class PublicationController {
         // 태그 추출
         List<Tag> tagList = publicationService.getTagsByContents(tags);
         // 태그에 따른 기사 정리 및 중복된 기사 제거
-        Set<NewsDto> result = new HashSet<>();
+        Set<SearchNewsDto> newsList = new HashSet<>();
         for (Tag tag : tagList) {
-            result.addAll(tag.getNewsTagList().stream().map(
-                    newsTag -> NewsDto.from(newsTag.getNews())
+            newsList.addAll(tag.getNewsTagList().stream().map(
+                    newsTag -> SearchNewsDto.of(newsTag.getNews(), newsTag.getNews().getPublication())
             ).toList());
         }
 
-        model.addAttribute("newsList", result);
+        model.addAttribute("newsList", newsList);
         return "newsTagSearch";
     }
 
