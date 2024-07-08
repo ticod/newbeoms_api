@@ -24,7 +24,7 @@ public class PublicationRestController {
     /**
      * 출간일 및 기사 추가
      */
-    @PostMapping("/api/publication")
+    @PostMapping("/api/publications")
     public String addPublication(@RequestBody PublicationDto publicationDto) {
         log.info(publicationDto.toString());
 
@@ -58,7 +58,7 @@ public class PublicationRestController {
     /**
      * 해당 출간일의 기사 반환
      */
-    @GetMapping("/api/publication/{date}")
+    @GetMapping("/api/publications/{date}")
     public PublicationDto getPublicationByDate(@PathVariable("date") LocalDate date) {
         Publication publication = publicationService.getPublication(date);
 
@@ -81,6 +81,16 @@ public class PublicationRestController {
         return PublicationDto.of(publication, newsDtoList,
                 comingSoonDtoList, gossipDtoList,
                 hardwareNewsDtoList, workCitedDtoList);
+    }
+
+    /**
+     * DB의 출판물 날짜 전부 반환
+     */
+    @GetMapping("/api/publications/dates")
+    public List<PublicationDateDto> getPublicationDates() {
+        return publicationService.getPublications().stream()
+                .map(PublicationDateDto::from)
+                .toList();
     }
 
 }
